@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jslint-antunit"
+         default="allTests"
+         xmlns:au="antlib:org.apache.ant.antunit"
+         xmlns:jsl="antlib:com.googlecode.jslint4java">
+    <description>
+Tests for the JSLint ant task.
+    </description>
+
+    <!-- A temp location the tests can write to. -->
+    <property name="temp.dir" location="${basedir}/out"/>
+
+    <!-- The location to write test reports to. -->
+    <property name="test.report.dir" location="${basedir}/../../surefire-reports"/>
+
+    <taskdef uri="antlib:org.apache.ant.antunit"
+             resource="org/apache/ant/antunit/antlib.xml"
+             classpath="${test.classpath}" />
+    <taskdef uri="antlib:com.googlecode.jslint4java"
+             resource="com/googlecode/jslint4java/antlib.xml"
+             classpath="${test.classpath}" />
+
+    <!-- Have to convert from boolean for use in target/@unless. -->
+    <condition property="skipping">
+        <istrue value="${test.skipped}" />
+    </condition>
+
+    <target name="allTests" unless="skipping">
+        <au:antunit failonerror="true">
+            <file file="${ant.file}" />
+            <!-- Add logLevel="info" attribute for debugging. -->
+            <au:plainlistener />
+            <!-- Record test results in the same places as JUnit. -->
+            <!-- TODO: pass the location in from maven. -->
+            <au:xmllistener logLevel="info" toDir="${test.report.dir}" />
+        </au:antunit>
+    </target>
+
+    <target name="setUp">
+        <echo message='BEGIN ${ant.project.invoked-targets}' />
+        <mkdir dir="${temp.dir}"/>
+    </target>
+
+    <target name="tearDown">
+        <delete dir="${temp.dir}" />
+        <echo message='END   ${ant.project.invoked-targets}' />
+    </target>
+
+    <!-- issue 53: we're OK with this. -->
+    <target name="testNoResources">
+        <jsl:jslint>
+            <formatter type="plain" />
+        </jsl:jslint>
+        <au:assertLogContains text="no files to lint!"/>
+    </target>
+
+    <target name="testFailsOnError">
+        <au:expectfailure expectedmessage="JSLint: 2 errors in 1 file">
+            <jsl:jslint>
+                <formatter type="plain" />
+                <fileset file="good.js" />
+                <fileset file="bad.js" />
+            </jsl:jslint>
+        </au:expectfailure>
+    </target>
+
+    <target name="testSuccess">
+        <jsl:jslint>
+            <formatter type="plain" />
+            <fileset file="good.js" />
+        </jsl:jslint>
+    </target>
+
+    <!-- Check we can supply a value to an option. -->
+    <target name="testOptionParams">
+        <jsl:jslint options="es5=true">
+            <predef>x</predef>
+            <formatter type="plain" />
+            <fileset file="undef.js" />
+        </jsl:jslint>
+    </target>
+
+    <!-- http://code.google.com/p/jslint4java/issues/detail?id=6 -->
+    <target name="testIssue6">
+        <au:expectfailure expectedmessage="JSLint: 1 error in 1 file">
+            <jsl:jslint options="browser,sloppy,white">
+                <formatter type="plain" />
+                <fileset file="issue6.js" />
+            </jsl:jslint>
+        </au:expectfailure>
+        <!-- This is not the exact same message reported, but was how I was
+             able to trigger the same condition. -->
+        <au:assertLogContains text="Expected ';' and instead saw '}'" />
+    </target>
+
+    <target name="testArbitraryResource">
+        <au:expectfailure expectedmessage="JSLint: 1 error in 1 file">
+            <jsl:jslint>
+                <formatter type="plain" />
+                <string value="eval(42);" />
+            </jsl:jslint>
+        </au:expectfailure>
+    </target>
+
+    <!-- http://code.google.com/p/jslint4java/issues/detail?id=21 -->
+    <target name="testNamesInOutputHavePath">
+        <au:expectfailure expectedmessage="JSLint: 1 error in 1 file">
+            <jsl:jslint>
+                <formatter type="plain" />
+                <fileset dir="subdir" includes="*.js" />
+            </jsl:jslint>
+        </au:expectfailure>
+        <au:assertLogContains text="subdir${file.separator}issue21.js:1:26: Expected ';' and instead saw '(end)'" />
+    </target>
+
+    <!-- Run a stub linter that always fails over a good javascript file,
+         and check that it fails correctly. -->
+    <target name="testAlternateJSLint">
+      <au:expectfailure expectedmessage="JSLint: 1 error in 1 file">
+        <jsl:jslint jslint="always-fail-lint.js">
+          <formatter type="plain" />
+          <fileset file="good.js" />
+        </jsl:jslint>
+      </au:expectfailure>
+    </target>
+
+    <!-- This will fail unless we can successfully predefine the globals. -->
+    <target name="testPredef">
+        <jsl:jslint>
+            <predef>foo,bar</predef>
+            <formatter type="plain" />
+            <fileset file="globals.js" />
+        </jsl:jslint>
+    </target>
+
+    <!-- We should be able to set a property on failure. -->
+    <target name="testFailureProperty">
+        <jsl:jslint failureproperty="boom" haltonfailure="false">
+            <formatter type="plain" />
+            <fileset file="bad.js"/>
+        </jsl:jslint>
+        <au:assertEquals expected="JSLint: 2 errors in 1 file" actual="${boom}" />
+    </target>
+
+    <!-- Check JUnit output appears in the right place with the right name. -->
+    <target name="testJUnitFormatter">
+        <echo message="in testJUnitFormatter" />
+        <jsl:jslint haltonfailure="false">
+            <formatter type="plain" />
+            <formatter type="junit" destfile="${temp.dir}" />
+            <fileset dir="." includes="good.js" />
+        </jsl:jslint>
+        <!--
+        TODO: How can I work out the correct filename?
+        It's appearing as:
+        TEST-_Users_hdm_work_jslint4java_jslint4java-ant_target_test-classes_antunit_good.js.xml
+        It should be anchored at the root of the fileset, ideally.
+        <au:assertFileExists file="${temp.dir}/TEST-good.js.xml" />
+        -->
+    </target>
+
+    <!-- Check that the report formatter produces some output. -->
+    <target name="testReportFormatter">
+        <jsl:jslint haltonfailure="no">
+            <formatter type="plain" />
+            <formatter type="report" destfile="${temp.dir}/report.html" />
+            <fileset file="good.js" />
+        </jsl:jslint>
+        <au:assertFileExists file="${temp.dir}/report.html" />
+        <!-- Can't figure out _exactly_ the filename… -->
+        <au:assertResourceContains resource="${temp.dir}/report.html" value="good.js" />
+        <au:assertResourceContains resource="${temp.dir}/report.html"
+            value="&lt;html>&lt;head>&lt;/head>&lt;body>&lt;div class='file'>" />
+    </target>
+
+    <!-- issue 42: numeric keys cause a blowup. -->
+    <target name="testNumericKeys">
+        <jsl:jslint>
+            <formatter type="plain" />
+            <!-- Should pass without blowup. -->
+            <fileset file="numeric-keys.js" />
+        </jsl:jslint>
+    </target>
+
+    <!-- issue 57: should be able to parse BOMs. -->
+    <target name="testBOM">
+        <jsl:jslint>
+          <predef>alert</predef>
+          <formatter type="plain" />
+          <fileset file="bom.js" />
+        </jsl:jslint>
+    </target>
+
+    <target name="testTimeout">
+        <au:expectfailure expectedmessage="TimeExceededException">
+            <!-- Use a custom jslint.js which calls Thread.sleep(). -->
+            <jsl:jslint timeout="1" jslint="sleepy-lint.js">
+                <fileset file="good.js" />
+            </jsl:jslint>
+        </au:expectfailure>
+    </target>
+</project>

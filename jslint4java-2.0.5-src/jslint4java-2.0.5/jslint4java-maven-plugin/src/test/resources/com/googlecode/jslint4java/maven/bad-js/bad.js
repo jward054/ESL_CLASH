@@ -1,0 +1,1 @@
+﻿encodeURIComponent('a+b')
