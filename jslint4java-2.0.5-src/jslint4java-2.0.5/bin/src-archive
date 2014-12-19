@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Create a source-archive.  Optionally from a -dist archive.
+#
+
+if [[ -z $1 ]] ; then
+    echo "usage: ${0##*/} tag" >&2
+    exit 2
+fi
+
+tag="$1"
+
+if [[ -f $tag && $tag = *-dist.zip ]] ; then
+    # Pick apart the tag from the filename.
+    zip=${tag/-dist.zip/-src.zip}
+    prefix=${zip##*/}
+    prefix=${prefix%-src.zip}
+    tag=${prefix/jslint4java/rel}
+else
+    # Make it up.
+    prefix="jslint4java-${tag#rel-}"
+    zip="${prefix}-src.zip"
+fi
+
+git archive \
+    --format=zip \
+    --prefix=$prefix/ \
+    --output=$zip \
+    $tag
+ls $zip

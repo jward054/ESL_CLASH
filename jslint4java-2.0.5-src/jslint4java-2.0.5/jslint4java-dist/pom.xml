@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>jslint4java-dist</artifactId>
+  <packaging>pom</packaging>
+  <name>jslint4java distribution</name>
+  <description>
+    This is a placeholder module for building the distribution archive.
+  </description>
+  <parent>
+    <artifactId>jslint4java-parent</artifactId>
+    <groupId>com.googlecode.jslint4java</groupId>
+    <version>2.0.5</version>
+  </parent>
+  <profiles>
+    <profile>
+      <id>dist</id>
+      <dependencies>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>jslint4java-ant</artifactId>
+          <classifier>shaded</classifier>
+        </dependency>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>jslint4java-docs</artifactId>
+          <type>zip</type>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>dist</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptors>
+                    <descriptor>${basedir}/src/main/assembly/dist.xml</descriptor>
+                  </descriptors>
+                  <!-- Pretend it's the main artifact and lose the "dist" -->
+                  <finalName>jslint4java-${project.version}</finalName>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

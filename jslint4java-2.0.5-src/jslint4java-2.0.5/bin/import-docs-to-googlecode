@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Import javadocs from the latest release to googlecode git.
+# This allows them to be made publically available in a fairly simple fashion.
+#
+
+me=${0##*/}
+
+if [[ -z $1 ]] ; then
+    echo "usage: $me jslint4java-X-dist.zip" >&2
+    exit 2
+fi
+
+distfile="$1"
+name=${distfile%-dist.zip}
+name=${name##*/}
+version=${name#jslint4java-}
+tmpd=$(mktemp -d -t $me.XXXXXX)
+trap "test -d '$tmpd' && rm -rf '$tmpd'" EXIT HUP INT QUIT TERM
+
+set -e
+
+git clone \
+  https://code.google.com/p/jslint4java.docs/ \
+  $tmpd
+unzip -q $distfile '*/docs/*' -d $tmpd
+cd $tmpd
+mv $tmpd/$name/docs $tmpd/$version
+git add $version
+git commit -m "Import $name docs."
+git push origin
+
+echo
+echo "http://docs.jslint4java.googlecode.com/git/$version/index.html"
