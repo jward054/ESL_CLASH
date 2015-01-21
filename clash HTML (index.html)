@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CLASH</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+	<link href="templatemo_style.css" type="text/css" rel="stylesheet" /> 
+	<script type="text/javascript" src="js/jquery.min.js"></script> 
+	<script type="text/javascript" src="js/jquery.scrollTo-min.js"></script> 
+	<script type="text/javascript" src="js/jquery.localscroll-min.js"></script> 
+	<script type="text/javascript" src="js/init.js"></script> 
+    
+    <link rel="stylesheet" href="css/slimbox2.css" type="text/css" media="screen" /> 
+    <script type="text/JavaScript" src="js/slimbox2.js"></script> 
+    	
+</head> 
+<body> 
+<div id="templatemo_header">
+   <!--<div id="site_title"><a rel="nofollow" href="http://www.cs.odu.edu" target="_parent">CLASH</a></div>-->
+   <br></br>
+   <br></br>
+    <div class="clear"></div>
+</div>
+<div id="templatemo_wrapper">
+<div id="templatemo_main">
+    <div id="content"> 
+        <div id="home" style="background-color:white">
+            
+                <table style="width:1000px; height: 520px; border: 5px solid black; padding: ;">
+                    <tr style=" border: 1px solid black;">
+                        <!--<td style="background-image:url(images/CLASH.jpg)""></td>-->
+                        <td valign="top" rowspan="11" style=" width:20%; border-right-style:solid; background-image:url(images/CLASH.jpg); background-repeat: no-repeat ">
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <center><select>
+                            <option value="Instructor">Instructor</option>
+                            <option value="Student">Student</option>
+                            <option value="Guest">Guest</option>
+                            <option value="Administrator">Administrator</option>
+                                </select></center>
+                        </td>
+                    </tr> 
+                    <tr style=" border: 1px solid black;">
+                        <img src=""></img>
+                        <th style="border-bottom-style: solid;"><input type="checkbox" name="COLRS" value="" style="align:left;">COLRS</input><input type="checkbox" name="SLASH" value="" style="align:center;">SLASH</input><input type="checkbox" name="SLASH READER" value="" style="align:right;">SLASH READER</input></th>
+                    </tr>   
+                    <tr>
+                        <td><form>
+                                <textarea style='width:780px; height: 400px;'>
+                                    This is were you would copy and paste the text you would like to have evaluated.
+                                </textarea>
+                                <input type="submit" value="Submit">
+                            </form>
+                        </td>
+                    </tr>
+                    
+                </table>                                    
+        </div>
+        <div align="center" class="section section_with_padding" id="about"> 
+            <h1>About</h1>
+            <div class="img_border img_fl">
+                <img src="images/templatemo_image_02.jpg" alt="image 2" />	
+            </div>
+            <p><em> CLASH is the combination of COLRS & SLASH READER. Worked on by Blue & Purple team. This is where the information of the product will go.</em></p>
+            <p>More information to go here to be done by someone from the Front end Team. </p>	
+            <div class="clear h20"></div>
+            <ul id="social_links">
+                <li><a href="#" class="facebook">Facebook</a></li>
+                <li><a href="#" class="flickr">Flickr</a></li>
+                <li><a href="#" class="picasa">Picasa</a></li>
+                <li><a href="#" class="twitter">Twitter</a></li>
+                <li><a href="#" class="youtube">Youtube</a></li>
+                <li><a href="#" class="vimeo">Vimeo</a></li>                        
+            </ul>
+            <a href="#home" class="home_btn">home</a> 
+        </div> 
+        <div align="center" class="section" id="services"> 
+            <h1>Services</h1>
+            
+            <div class="half left">
+                <div class="img_border img_nom">
+                    <img src="images/templatemo_image_04.jpg" alt="image 4" />	
+                </div>
+                
+            	<p><em>Brief explanation about what CLASH does and works to do.</em></p>
+                <p>To be filled out by someone from the frond end team.</p>
+            </div>
+            
+            <div class="half right">
+            	 <div class="img_border img_nom">
+                    <img src="images/templatemo_image_03.jpg" alt="image 3" />	
+                </div>
+                
+                <p>Brief explationation about what Clash Does and works to do. </p>
+            	<ul class="list_bullet">
+                    <li>List item 1 c</li>
+                    <li>List item 2</li>
+                    <li>List item 3</li>
+                    <li>List item 4</li>
+                    <li>List item 5</li>
+                    <li>List item 6</li>
+                    <li>List item 7</li>
+                </ul>
+                
+            </div>
+            <a href="#home" class="home_btn">home</a> 
+        </div> 
+        <div class="section" id="testimonial"> 
+            <h1>Testimonials</h1>
+            <p><em>Aliquam venenatis, quam a semper blandit, lectus mi convallis orci, ut dictum ante leo non leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris placerat, urna in gravida rhoncus, mi elit luctus nibh, a luctus erat elit vel quam. </em></p>
+            <blockquote class="testimonial_block">
+            <p>Duis tempor lacinia metus, ac malesuada sapien commodo quis. Sed bibendum mauris ut condimentum consequat. Nam semper tellus nec dignissim hendrerit.</p>
+            <cite>George - <span>Senior Web Designer</span></cite> </blockquote>
+            <blockquote class="testimonial_block">
+            <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc quis tincidunt sem. Fusce quis sem quis nunc hendrerit scelerisque.</p>
+            <cite>Van - <span>Marketing Specialist</span></cite> </blockquote>
+        
+            <a href="#home" class="home_btn">home</a> 
+        </div> 
+        <div class="section" id="contact"> 
+            <h1>Contact</h1> 
+            <div class="half left">
+                <h4>Quick Contact</h4>
+                <div id="contact_form">
+                    <form method="post" name="contact" action="#contact">
+
+                        <label for="name">Name:</label> 
+                        <input type="text" id="name" name="name" class="required input_field" />
+                        
+                        <label for="email">Email:</label> 
+                        <input type="text" id="email" name="email" class="validate-email required input_field" />
+
+                        <label for="text">Message:</label> 
+                        <textarea id="text" name="text" rows="0" cols="0" class="required"></textarea>
+                        
+                        <input type="submit" class="submit_btn float_l" name="submit" id="submit" value="Send" />
+                        
+                    </form>
+                    
+               	</div>
+            </div>
+            
+            <div class="half right">
+                <h4>Mailing Address</h4>
+                <h6><strong>Office One</strong></h6>
+                CS411w- Old Dominion University <br />
+                5115 Hampton Blvd<br />
+                Norfolk, VA 23505<br /><br />
+                
+                <strong>Phone:</strong> 000-000-0000<br />
+                <strong>Email:</strong> <a href="mailto:agent@company.com">agent@company.com</a> <br />
+                
+                <div class="cleaner h20"></div>
+                
+            </div>
+            <a href="#home" class="home_btn">home</a> 
+        </div> 
+    </div> 
+</div>
+
+<div id="templatemo_sidebar">
+	<div class="sidebar_box"><a href="#about">
+    	<span class="about"></span>
+    	<span class="menu_title">About</span>
+        <span class="menu_desc">CLASH is a combination of...</span>
+        </a>
+    </div>
+    <div class="sidebar_box"><a href="#services">
+	    <span class="services"></span>
+    	<span class="menu_title">Services</span>
+        <span class="menu_desc">Clash provides a completely new method for learning English!</span>
+        </a>
+    </div>
+    <div class="sidebar_box"><a href="#testimonial">
+		<span class="testimonial"></span>    
+    	<span class="menu_title">Testimonials</span>
+        <span class="menu_desc">Hear from our customers!</span>
+        </a>
+    </div>
+    <div class="sidebar_box"><a href="#contact">
+	    <span class="contact"></span>
+    	<span class="menu_title">Contact</span>
+        <span class="menu_desc">Please reach out to us! We'd love to hear from you.</span>
+        </a>
+    </div>
+    <ul id="social_buttons">
+        <li><a href="#" class="facebook"></a></li>
+        <li><a href="#" class="flickr"></a></li>
+        <li><a href="#" class="picasa"></a></li>
+        <li><a href="#" class="twitter"></a></li>
+        <li><a href="#" class="youtube"></a></li>
+        <li><a href="#" class="vimeo"></a></li>                        
+    </ul>
+    
+</div>
+<div class="clear"></div>
+</div>
+
+<div id="templatemo_footer_wrapper">
+	<div id="templatemo_footer">
+    	<p>Copyright © 2014-2015 CLASH</p>
+    </div>
+</div>
+</body> 
+</html>
